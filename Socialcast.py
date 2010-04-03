@@ -1,5 +1,5 @@
-import sys
-import urllib2
+import sys,urllib2,time
+import dateutil.parser
 try: import simplejson as json
 except ImportError: sys.exit('ERROR LOADING JSON')
 
@@ -32,6 +32,7 @@ class Message(object):
 	def __init__(self,data):
 		self._raw	= data
 		self.user	= User(data['user'])
+		self.created_at = dateutil.parser.parse(data.get('created_at'))
 	def __getattr__(self,name):
 		return self._raw.get(name,None)
 	

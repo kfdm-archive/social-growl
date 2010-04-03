@@ -11,6 +11,8 @@ class Config:
 			self._config.set('DEFAULT','email','###')
 			self._config.set('DEFAULT','password','###')
 			self._config.set('DEFAULT','domain','###')
+			self._config.set('DEFAULT','growlapp','Socialcast')
+			self._config.set('DEFAULT','polldelay','600')
 			self._config.write(open(file,'w'))
 			sys.exit(1)
 	def __getattr__(self,name):
