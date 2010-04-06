@@ -23,13 +23,15 @@ def growl_notice(msg):
 	if msg.body: msg_body = msg.body
 	else: msg_body = msg.external_url
 	
+	msg_body = str(msg.created_at) + '\n' + msg_body
+	
 	print msg_title
 	growl.notify( noteType = 'Message', title = msg_title, description = msg_body )
 
 sc		= Socialcast(config.domain,config.email,config.password)
 msgs	= sc.messages()
 growl.notify(
-	noteType = 'Message',
+	noteType = 'Notice',
 	title = "%s Messages Total"%(len(msgs)),
 	description = '',
 )
