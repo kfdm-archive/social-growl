@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+# Use the location of this file for the CWD
+import os
+os.chdir(os.path.dirname(__file__))
+
 CFG_FILE = 'social.cfg'
 GROWL_NOTIFICATIONS = ['Message','Notice']
 
