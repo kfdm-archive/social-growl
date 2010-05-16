@@ -7,7 +7,7 @@ class Config:
 		self._config = ConfigParser()
 		try: self._config.readfp(open(file))
 		except IOError:
-			print >> sys.stderr, 'No config file found.  Writing defaults'
+			print >> sys.stderr, 'No config file found.  Writing defaults to',file
 			self._config.set('DEFAULT','email','###')
 			self._config.set('DEFAULT','password','###')
 			self._config.set('DEFAULT','domain','###')

@@ -3,7 +3,7 @@
 import os
 os.chdir(os.path.dirname(__file__))
 
-CFG_FILE = 'social.cfg'
+CFG_FILE = os.path.expanduser('~/.social-growl')
 GROWL_NOTIFICATIONS = ['Message','Notice']
 
 from time import sleep
