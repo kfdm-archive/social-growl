@@ -3,7 +3,7 @@
 import os
 os.chdir(os.path.dirname(__file__))
 
-CFG_FILE = os.path.expanduser('~/.social-growl')
+CFG_FILE = os.path.expanduser('~/.gntp')
 GROWL_NOTIFICATIONS = ['Message','Notice']
 
 from time import sleep
@@ -15,7 +15,7 @@ config	= Config(CFG_FILE)
 
 #Register Growl
 growl = GrowlNotifier(
-	applicationName = config.growlapp,
+	applicationName = config['social.appname'],
 	notifications = GROWL_NOTIFICATIONS,
 	defaultNotifications = GROWL_NOTIFICATIONS,
 	applicationIcon = open('icon.png').read()
@@ -32,7 +32,7 @@ def growl_notice(msg):
 	print msg_title
 	growl.notify( noteType = 'Message', title = msg_title, description = msg_body )
 
-sc		= Socialcast(config.domain,config.email,config.password)
+sc		= Socialcast(config['social.domain'],config['social.email'],config['social.password'])
 msgs	= sc.messages()
 growl.notify(
 	noteType = 'Notice',
@@ -44,8 +44,8 @@ last_message = msgs[0].created_at
 
 while(True):
 	try:
-		print 'Sleeping for %s\t%s'%(config.polldelay,last_message)
-		sleep(int(config.polldelay))
+		print 'Sleeping for %s\t%s'%(config['social.polldelay'],last_message)
+		sleep(config['social.polldelay'])
 		newest_message = last_message
 		for msg in sc.messages():
 			if msg.created_at > last_message:
