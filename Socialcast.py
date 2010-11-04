@@ -1,7 +1,12 @@
 import sys,urllib2,time
 import dateutil.parser
-try: import simplejson as json
-except ImportError: sys.exit('ERROR LOADING JSON')
+try:
+	import json
+except ImportError:
+	try:
+		import simplejson as json
+	except:
+		sys.exit('ERROR LOADING JSON')
 
 API_REALM		= 'Socialcast Email address/Password'
 API_URL			= 'https://%s.socialcast.com/'
