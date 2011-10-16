@@ -10,10 +10,12 @@ DEFAULT_LOG = os.path.realpath('./social.log')
 DEFAULT_ICON = os.path.realpath('./icon.png')
 
 from time import sleep
-from Message import GrowlNotifier
-from Config import Config
-from Socialcast import Socialcast
-import daemon
+
+from social.Message import GrowlNotifier
+from social.Config import Config
+from social.Socialcast import Socialcast
+from social.daemon import Daemon
+
 import optparse
 import logging
 
@@ -29,7 +31,7 @@ class Parser(optparse.OptionParser):
 		self.add_option('-v','--verbose',dest='verbose',default=logging.INFO,
 			action='store_const',const=logging.DEBUG)
 
-class Social(daemon.Daemon):
+class Social(Daemon):
 	def run(self,loop=True):
 		config	= Config(CFG_FILE)
 		growl = GrowlNotifier(config['social.appname'],DEFAULT_ICON)

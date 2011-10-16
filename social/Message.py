@@ -6,13 +6,16 @@ try:
 	_icon = None
 except ImportError:
 	from Growl import GrowlNotifier as _Notifier
-	_icon = open(iconname).read()
+	_icon = True
 
 
 GROWL_NOTIFICATIONS = ['Message','Notice']
 
 class GrowlNotifier(_Notifier):
 	def __init__(self,appname,iconname):
+		global _icon
+		if _icon:
+			_icon = open(iconname).read()
 		_Notifier.__init__(
 			self,
 			applicationName = appname,
