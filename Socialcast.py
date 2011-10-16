@@ -1,3 +1,5 @@
+import logging
+logger = logging.getLogger(__name__)
 import sys,urllib2,time
 import dateutil.parser
 try:
@@ -17,7 +19,9 @@ class Socialcast(object):
 		self.domain		= domain
 		self.email		= email
 		self.password	= password
-		
+		logger.debug('Domain:   %s', API_URL % self.domain)
+		logger.debug('Email:    %s', self.email)
+		logger.debug('Password: %s', self.password)
 		auth_handler = urllib2.HTTPBasicAuthHandler()
 		auth_handler.add_password(API_REALM,API_URL%self.domain,self.email,self.password)
 		opener = urllib2.build_opener(auth_handler)
@@ -26,7 +30,7 @@ class Socialcast(object):
 	def messages(self):
 		try: data = urllib2.urlopen(API_MESSAGES%self.domain).read()
 		except IOError, e:
-			print e.headers
+			logger.exception('Error reading messages %s',e.headers)
 			sys.exit(1)
 		messages = []
 		for msg in json.loads(data)['messages']:
