@@ -1,17 +1,24 @@
-import Growl
 import logging
 logger = logging.getLogger(__name__)
 
+try:
+	from gntp.notifier import GrowlNotifier as _Notifier
+	_icon = None
+except ImportError:
+	from Growl import GrowlNotifier as _Notifier
+	_icon = open(iconname).read()
+
+
 GROWL_NOTIFICATIONS = ['Message','Notice']
 
-class GrowlNotifier(Growl.GrowlNotifier):
+class GrowlNotifier(_Notifier):
 	def __init__(self,appname,iconname):
-		Growl.GrowlNotifier.__init__(
+		_Notifier.__init__(
 			self,
 			applicationName = appname,
 			notifications = GROWL_NOTIFICATIONS,
 			defaultNotifications = GROWL_NOTIFICATIONS,
-			applicationIcon = open(iconname).read()
+			applicationIcon = _icon
 		)
 	def growl_notice(self,msg):
 		msg_title = "[%s] %s"%(msg.user.username,msg.title)
