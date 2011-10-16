@@ -46,7 +46,7 @@ class Social(daemon.Daemon):
 				newest_message = last_message
 				for msg in sc.messages():
 					if msg.created_at > last_message:
-						growl_notice(msg)
+						growl.growl_notice(msg)
 						if msg.created_at > newest_message:
 							newest_message = msg.created_at
 				last_message = newest_message
@@ -70,6 +70,9 @@ if 'stop' in args:
 elif 'restart' in args:
 	logging.basicConfig(level=options.verbose,filename=options.log,format=LOG_FORMAT)
 	social.restart()
+elif 'run' in args:
+	logging.basicConfig(level=options.verbose,format=LOG_FORMAT)
+	social.run()
 else:
 	logging.basicConfig(level=options.verbose,filename=options.log,format=LOG_FORMAT)
 	social.start()
