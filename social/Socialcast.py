@@ -42,6 +42,7 @@ class Message(object):
 		self._raw	= data
 		self.user	= User(data['user'])
 		self.created_at = dateutil.parser.parse(data.get('created_at'))
+		self.permalink_url = data['permalink_url']
 	def __getattr__(self,name):
 		return self._raw.get(name,None)
 	

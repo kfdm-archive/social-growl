@@ -31,11 +31,11 @@ class GrowlNotifier(_Notifier):
 			msg_body = msg.external_url
 		msg_body = "%s\n%s"%(msg.created_at,msg_body)
 		logger.info(msg_title)
-		self.notify( noteType = 'Message', title = msg_title, description = msg_body )
+		self.notify(noteType='Message', title=msg_title,
+			description=msg_body, callback=msg.permalink_url)
 	def msg_summary(self,count):
 		self.notify(
 			noteType = 'Notice',
 			title = "%s Messages Total"%count,
 			description = '',
 		)
-	
