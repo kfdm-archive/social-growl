@@ -2,19 +2,17 @@ import logging
 logger = logging.getLogger(__name__)
 
 try:
-	from gntp.notifier import GrowlNotifier as _Notifier
-	_icon = None
+	from gntp.config import GrowlNotifier as _Notifier
 except ImportError:
 	from Growl import GrowlNotifier as _Notifier
-	_icon = True
 
 
 GROWL_NOTIFICATIONS = ['Message','Notice']
 
 class GrowlNotifier(_Notifier):
-	def __init__(self,appname,iconname):
-		global _icon
-		if _icon:
+	def __init__(self,appname,iconname=None):
+		_icon = None
+		if iconname:
 			_icon = open(iconname).read()
 		_Notifier.__init__(
 			self,
